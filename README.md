@@ -41,19 +41,15 @@ predictfun_design/
 ├── README.md                         ← 本文件
 └── research/
     ├── README.md                     ← 调研总览与快速导航
-    ├── 01_market/analysis.md         ← 市场情况：定位、规模、融资、收购
-    ├── 02_business_architecture/analysis.md  ← 业务架构：核心模块
-    ├── 03_tech_architecture/analysis.md      ← 技术架构：CLOB + CTF + UMA + Yield
-    ├── 04_user_experience/analysis.md        ← 用户体验：注册/入金/交易/提现/结算
-    ├── 05_core_features_moat/analysis.md     ← 核心功能与交易技术壁垒
-    ├── 06_business_model/analysis.md         ← 商业模式：费率、收入测算、画布
-    ├── 07_token_points_airdrop/analysis.md   ← 代币 / Predict Points / 空投
-    ├── 08_competitive_landscape/analysis.md  ← 竞争格局：vs Polymarket / Kalshi
+    ├── 01_predictfun/
+    │   └── analysis.md               ← 深度分析报告（8 大标准化章节）
     └── summary/
         ├── overview.md               ← 全景汇总报告
         ├── open_questions.md         ← 待确认问题清单
         └── limitations.md            ← 调研局限性说明
 ```
+
+> 目录结构与参考项目 `polymarket_research` 对齐：**每个被调研对象一个文件夹，内含单个 `analysis.md`**，市场/业务/技术/UX 等所有维度作为编号章节集中在该文件内。
 
 ---
 
@@ -73,18 +69,18 @@ predictfun_design/
 
 ---
 
-## 📋 每份报告包含的内容
+## 📋 报告包含的内容
 
-调研沿用参考项目（Polymarket Builder 生态调研）的标准化维度：
+调研沿用参考项目（Polymarket Builder 生态调研）的标准化结构——单份 `analysis.md` 含以下 8 大编号章节：
 
-- **市场情况**：定位、市场规模、融资与收购、竞争格局
-- **业务架构**：核心模块 Mermaid 架构图
-- **技术架构**：技术栈、链上合约族、数据流、关键 API 端点
-- **用户体验路径**：注册/入金/交易/提现/结算完整 Journey + Mermaid 流程图
-- **核心功能与交易技术壁垒**：功能详解 + 壁垒评分表
-- **商业模式**：收入来源 + 收入测算 + 商业画布
-- **代币/积分/空投**：Predict Points 机制与空投预期
-- **待确认问题**：明确标注哪些是推测、哪些待验证
+1. **市场情况**：定位、市场规模与轨迹、品类覆盖、竞争格局、融资与收购
+2. **业务架构**：五大核心模块、市场生命周期、资金流、双边市场、利益相关者
+3. **用户体验路径**：双入口对比 + 注册/入金/交易/持仓/结算/提现完整 Mermaid 流程
+4. **技术架构**：技术栈、链上合约族、Venus 生息机制、数据流、关键 API 端点
+5. **核心功能与交易技术壁垒**：功能详解 + 壁垒评分表 + 与 Polymarket 对照
+6. **商业模式**：费率数学、收入测算、单位经济性、商业画布、增长飞轮、代币/积分/空投
+7. **待确认问题**：明确标注哪些是推测、哪些待验证
+8. **总结**：核心判断
 
 ---
 
