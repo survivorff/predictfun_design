@@ -13,11 +13,12 @@ predict.fun 是 **YZi Labs（原 Binance Labs）支持、CZ 公开站台的 BNB 
 |------|------|
 | 上线 | 2025-12-16（CZ 12-04 预告） |
 | 链 | BNB Chain |
-| 机制 | 二元 YES/NO，链下 CLOB + 链上 CTF 结算 |
+| 机制 | 二元 YES/NO + 多结果，链下 CLOB + 链上 CTF 结算 |
 | 结算 | UMA 兼容乐观预言机 |
-| 差异化 | 生息抵押 + Binance Gasless + 亚洲市场 |
-| 资本 | YZi Labs 领投/复投、Susquehanna 跟投 |
-| 创始人 | @dingalingts（前 Binance 研究负责人） |
+| 差异化 | 生息抵押（Venus Protocol 路由）+ Binance Gasless + 亚洲市场 |
+| 渠道 | Binance Wallet 集成，触达 200M+ 用户 |
+| 资本 | YZi Labs 领投/复投、Susquehanna 跟投、CZ 站台 |
+| 创始人 | Dingaling（前 Binance 研究负责人、PancakeSwap 联合创始人） |
 | 累计量/用户 | $1.8B+ / 130k+ / 4M+ 订单 / $20M+ 资金生息 |
 | TVL | ~$16.9M（DefiLlama） |
 | 代币 | 未发币（Predict Points 积分 + 空投预期） |
@@ -65,7 +66,7 @@ mindmap
 
 ## 3. 核心发现（TL;DR）
 
-1. **生息抵押品是结构性创新**——链上独立部署的 `YieldBearing*` 合约族佐证「押注期间资金不闲置」，解决预测市场资本效率痛点。
+1. **生息抵押品是结构性创新**——链上独立部署的 `YieldBearing*` 合约族佐证「押注期间资金不闲置」，抵押品经 **Venus Protocol** 生息，是当前唯一对闲置抵押提供收益的主要预测市场。
 2. **Binance 全家桶背书**——YZi 多次投资、CZ 站台、Binance Wallet 原生 Gasless 集成、创始人前 Binance 背景。
 3. **技术是 Polymarket 的 BNB 改良分叉**——CTF + CLOB + UMA 兼容预言机同源，差异在链选、生息、账户抽象。
 4. **东方野心明确**——主服务器东京、收购 Probable、岳小鱼任亚太负责人。

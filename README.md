@@ -59,7 +59,7 @@ predictfun_design/
 
 ## 🔍 核心发现（TL;DR）
 
-1. **「会生息的抵押品」是最大护城河**：predict.fun 在 Polymarket 式的 CLOB + 条件代币（CTF）架构之上，额外构建了一套 **Yield-Bearing 合约族**（`YieldBearingConditionalTokens` / `YieldBearingWrappedCollateral`）。用户下注的 USDT 在持仓期间被包装为生息抵押品，路由进 BNB Chain DeFi 策略，理论年化 5–15%。这是相对 Polymarket（抵押品闲置）的结构性创新。
+1. **「会生息的抵押品」是最大护城河**：predict.fun 在 Polymarket 式的 CLOB + 条件代币（CTF）架构之上，额外构建了一套 **Yield-Bearing 合约族**（`YieldBearingConditionalTokens` / `YieldBearingWrappedCollateral`）。用户下注的 USDT 在持仓期间被包装为生息抵押品，路由进 **Venus Protocol**（BNB Chain 最大借贷市场），理论年化 5–15%。这是当前唯一对闲置抵押提供收益的主要预测市场（相对 Polymarket 抵押品闲置的结构性创新）。
 
 2. **背靠 Binance 全家桶**：YZi Labs（原 Binance Labs）领投并多次复投，CZ 亲自预告站台，创始人 @dingalingts 为前 Binance 研究负责人。更关键的是 **Binance Wallet 原生集成**——用户用 Keyless Wallet 一键开户、Binance 代付 Gas、完全 Gasless，把数千万 Binance 用户变成潜在流量池。
 

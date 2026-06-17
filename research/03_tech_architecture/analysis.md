@@ -185,7 +185,45 @@ mindmap
 
 1. **条件代币框架（CTF）**：与 Gnosis/Polymarket 同源，将一个事件拆分为 YES/NO（或多结果）的 ERC-1155 头寸；`NegRisk` 适配器处理「多选一」互斥市场（如多候选人选举）。
 2. **UMA 兼容乐观预言机**：事件结束后，提议者乐观提交结果；若无人质押挑战，结果即生效；若有争议，升级到 UMA 的 DVM（数据验证机制）由代币持有者投票仲裁。
-3. **生息抵押（Yield-Bearing）**：通过 `YieldBearingWrappedCollateral` 将 USDT 抵押品包装为生息资产，路由进 BNB Chain DeFi 策略（如借贷协议，理论 5–15% APY），实现「押注期间资金不闲置」。
+3. **生息抵押（Yield-Bearing）**：通过 `YieldBearingWrappedCollateral` 将 USDT 抵押品包装为生息资产，路由进 **Venus Protocol**（BNB Chain 最大借贷市场），理论 5–15% APY，实现「押注期间资金不闲置」。
+
+### 3.3 生息机制详解（Venus 路由）
+
+```mermaid
+sequenceDiagram
+    participant U as 用户
+    participant PF as Predict 协议
+    participant WC as YieldBearingWrappedCollateral
+    participant V as Venus Protocol (借贷)
+    participant CTF as YieldBearingConditionalTokens
+
+    U->>PF: 存入 USDT
+    PF->>WC: 包装为生息抵押品
+    WC->>V: 供给 USDT 到 Venus 借贷池
+    V-->>WC: 持续累积借贷利息 (APY)
+    U->>CTF: 用生息抵押下注 YES/NO
+    Note over WC,V: 持仓期间本金在 Venus 持续生息
+    U->>PF: 平仓/结算/提现
+    PF->>V: 从 Venus 赎回本金 + 利息
+    V-->>U: 返还 USDT (本金 + 收益)
+```
+
+**对比：闲置抵押 vs 生息抵押**
+
+```mermaid
+graph LR
+    subgraph Polymarket 闲置抵押
+        A1[存入 USDC] --> A2[锁定为抵押]
+        A2 --> A3[持仓期间 0 收益]
+    end
+    subgraph predict.fun 生息抵押
+        B1[存入 USDT] --> B2[包装 WrappedCollateral]
+        B2 --> B3[供给 Venus 生息]
+        B3 --> B4[持仓期间 5-15% APY]
+    end
+```
+
+> ⚠️ **待确认**：① 收益归属（全部归用户 or 平台分成）；② 「生息」与「非生息」两套合约对用户是默认哪套、能否选择；③ Venus 借贷池的清算与脱锚风险隔离机制。
 
 ---
 
@@ -252,6 +290,54 @@ graph LR
 
 ---
 
+## 5.5 鉴权与下单生命周期
+
+### 鉴权流程（EIP-712 → JWT）
+
+```mermaid
+sequenceDiagram
+    participant C as 客户端/SDK
+    participant API as Predict API
+    participant W as 钱包 (EOA/Privy)
+
+    C->>API: GET 获取待签名 auth message
+    API-->>C: 返回 message
+    C->>W: 请求 EIP-712 签名
+    W-->>C: 返回签名
+    C->>API: POST 提交签名换取 JWT
+    API-->>C: 返回 JWT (后续请求鉴权)
+```
+
+### 订单状态机
+
+```mermaid
+stateDiagram-v2
+    [*] --> 已签名: 客户端 EIP-712 签名订单
+    已签名 --> 已挂单: POST 进入链下订单簿
+    已挂单 --> 部分成交: 撮合部分数量
+    已挂单 --> 完全成交: 撮合全部数量
+    部分成交 --> 完全成交
+    已挂单 --> 已取消: POST remove orders
+    部分成交 --> 已取消: 取消剩余
+    完全成交 --> 已上链结算: CTFExchange 结算
+    已上链结算 --> [*]
+```
+
+> 做市要点：挂单在「已挂单/部分成交」状态期间参与每分钟订单簿快照，累积做市 Predict Points（详见 07）。
+
+## 5.6 实时数据与 WebSocket
+
+```mermaid
+graph LR
+    WS[Predict WebSocket] --> CH1[订单簿增量更新]
+    WS --> CH2[成交/撮合事件]
+    WS --> CH3[市场价格/时序]
+    WS --> CH4[账户持仓/订单状态]
+    REST[REST 轮询] -.补充.-> CH1
+```
+
+- REST 提供 `market timeseries`、`orderbook`、`market statistics`、`order match events` 等端点；WebSocket 用于低延迟推送订单簿与成交，支撑做市/高频场景。
+
 ## 6. 技术栈推断
 
 | 层 | 推断技术 | 依据 |
@@ -261,7 +347,7 @@ graph LR
 | 链下撮合 | 自建 CLOB 撮合服务 | API/文档 |
 | 账户抽象 | Privy（钱包）+ ZeroDev（AA/Gasless） | 文档 + 合约命名 |
 | 结算预言机 | UMA 兼容乐观预言机 | 链上合约 |
-| 收益 | BNB Chain DeFi 借贷（Venus/Lista 等，待确认） | 媒体 + 合约命名 |
+| 收益 | Venus Protocol（BNB 最大借贷市场，已确认） | CMC Research |
 | 前端 | React/Next.js（推断） | 行业惯例 |
 | 部署区域 | AWS ap-northeast-1 | 文档 |
 

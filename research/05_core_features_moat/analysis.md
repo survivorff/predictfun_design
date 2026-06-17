@@ -24,9 +24,10 @@ graph TD
 ## 2. 功能详解
 
 ### 2.1 功能一：生息抵押品（核心差异化）
-- 用户存入的 USDT 在持仓期间被 `YieldBearingWrappedCollateral` 包装为生息资产，路由进 BNB Chain DeFi 策略（理论 5–15% APY）。
-- 解决了传统预测市场（Augur/Polymarket）抵押品 **闲置** 的资本效率痛点。
-- **壁垒**：需自研一套并行的生息合约族 + DeFi 集成 + 风险隔离，工程与风控门槛高，且需要可信的 DeFi 收益来源（BNB 生态）。
+- 用户存入的 USDT 在持仓期间被 `YieldBearingWrappedCollateral` 包装为生息资产，路由进 **Venus Protocol**（BNB Chain 最大借贷市场），理论 5–15% APY。
+- predict.fun 是 **当前唯一对闲置抵押品提供收益的主要预测市场平台**（CMC Research）。
+- 解决了传统预测市场（Augur/Polymarket）抵押品 **闲置** 的资本效率痛点——押注的机会成本被收益抵消。
+- **壁垒**：需自研并行的生息合约族 + Venus 集成 + 风险隔离，工程与风控门槛高；且依赖 BNB 生态可信的 DeFi 收益来源。
 
 ### 2.2 功能二：链下 CLOB 高性能交易
 - 中央限价订单簿链下撮合，链上仅结算，兼顾速度与去信任。
